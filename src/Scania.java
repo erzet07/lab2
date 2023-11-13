@@ -29,7 +29,7 @@ public class Scania extends Car{
     }
 
     public double speedFactor() {
-        return 1;
+        return 4;
     }
 
 
