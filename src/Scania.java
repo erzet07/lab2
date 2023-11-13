@@ -23,6 +23,7 @@ public class Scania extends Car{
         }
 
     }
+    public String hej;
 
     public double getflakVinkel() {
         return flakVinkel;
