@@ -21,6 +21,9 @@ public abstract class Car implements Movable {
 
     public abstract double speedFactor();
 
+    public void setPosition(Point newPosition) {
+        this.position = newPosition;
+    }
     public void move() {
         Point initialPosition = getPosition();
         double newX = position.getX() + Math.cos(Math.toRadians(direction)) * getCurrentSpeed();
