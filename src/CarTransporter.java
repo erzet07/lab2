@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class CarTransporter extends Car{
 
     public double speedFactor() {return 3; }
-    private int kapacitet;
+    private final int kapacitet;
     public boolean rampUppe;
 
     private LinkedList<Car> loadedCars = new LinkedList<>();
