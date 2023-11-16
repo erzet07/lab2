@@ -23,10 +23,6 @@ public class Scania extends Car{
         }
 
     }
-    public String hejdå;
-
-    
-
 
     public double getflakVinkel() {
         return flakVinkel;
@@ -35,7 +31,6 @@ public class Scania extends Car{
     public double speedFactor() {
         return 1;
     }
-
 
     public static void main(String[] args) {
         Scania s = new Scania();
