@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Verkstad <T extends Car> implements bilVerkstad<T> {
     private int maxAntalBilar;
-    protected ArrayList<T> bilLista = new ArrayList<>();
+    private ArrayList<T> bilLista = new ArrayList<>();
 
 
     public void setMaxAntalBilar(int antal) {
