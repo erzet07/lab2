@@ -5,10 +5,12 @@ public class CarTransporter extends Car{
 
 
     public Scania helper = new Scania();
-    public double speedFactor() {return 3; }
+
     private final int kapacitet;
 
-
+    public double speedFactor(){
+        return getEnginePower() * 0.1;
+    }
 
     private LinkedList<Car> loadedCars = new LinkedList<>();
 
@@ -21,9 +23,7 @@ public class CarTransporter extends Car{
 
     }
 
-    public double speedFactor(){
-        return getEnginePower() * 0.1;
-    }
+
 
     public void updateLoadedCarsPosition() {
 
