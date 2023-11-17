@@ -54,9 +54,10 @@ class CarTransporterTest {
         assert (transporter.getLoadedCars().isEmpty());
     }
     @Test
-    void loadCar() {
+    void loadCarRangeLimitAndOnlyWhenRampIsLowered() {
         transporter.raiseRamp();
         transporter.loadCar(s);
+
         transporter.lowerRamp();
         Point motel = new Point(20,20);
         s.setPosition(motel);
