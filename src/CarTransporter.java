@@ -4,8 +4,8 @@ import java.util.LinkedList;
 public class CarTransporter extends Car{
 
 
-    public Scania helper = new Scania();
 
+    private boolean rampState = true;
     private final int kapacitet;
 
     public double speedFactor(){
@@ -19,7 +19,7 @@ public class CarTransporter extends Car{
     public CarTransporter(int kapacitet) {
         super(10, 2, "Daf", 225, Color.gray);
         this.kapacitet = kapacitet;
-        helper.changeFlak(70);
+
 
     }
 
@@ -46,17 +46,17 @@ public class CarTransporter extends Car{
 
     public void lowerRamp() {
         if (getCurrentSpeed() == 0) {
-            helper.changeFlak(0);
+            rampState = false;
         }
     }
 
 
     public void raiseRamp() {
-        helper.changeFlak(70);
+        rampState = true;
     }
     public void loadCar(Car bil) {
 
-        if (helper.getflakVinkel() == 0 && loadedCars.size() < kapacitet && bil.getLength() <= 2) {
+        if (!rampState && loadedCars.size() < kapacitet && bil.getLength() <= 2) {
 
             double distance = calculateDistance(bil.getPosition(), getPosition());
             if (distance < 2) {
@@ -107,13 +107,15 @@ public class CarTransporter extends Car{
 
     @Override
     public void gas(double amount) {
-        if (helper.getflakVinkel() == 70)
+        if (rampState)
             super.gas(amount);
     }
 
     public boolean getOmRampUppe() {
-        return helper.getflakVinkel() == 70;
+        return rampState;
     }
+
+
 
 }
 
