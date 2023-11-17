@@ -107,5 +107,22 @@ class CarTransporterTest {
         transporter.loadCar(v);
         assertEquals(2,transporter.getAntalLastadeBilar());
     }
+    @Test
+    void updateLoadedCarsPosition() {
+        Point Origo = new Point(0,0);
+        s.setPosition(Origo);
+        transporter.setPosition(Origo);
+        v.setPosition(Origo);
+        transporter.lowerRamp();
+        transporter.loadCar(s);
+        transporter.loadCar(v);
+        transporter.startEngine();
+        transporter.gas(20);
+        transporter.move();  // korrekt rörelse inputs
+        Point nyposTransporter = new Point(transporter.getPosition());
+        Point nyposSaab = new Point(s.getPosition());
+        assertEquals(nyposTransporter, nyposSaab);
+        assertNotEquals(Origo, nyposSaab);
+    }
 
 }
