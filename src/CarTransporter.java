@@ -9,7 +9,7 @@ public class CarTransporter extends Car{
 
 
     public CarTransporter(int kapacitet) {
-        super(2, "Daf", 225, Color.gray);
+        super(10, 2, "Daf", 225, Color.gray);
         this.kapacitet = kapacitet;
         this.rampUppe = true;
 
@@ -40,18 +40,13 @@ public class CarTransporter extends Car{
 
     }
     public void loadCar(Car bil) {
-        if (!rampUppe && loadedCars.size() < kapacitet && !(bil instanceof CarTransporter)) {
+        if (!rampUppe && (loadedCars.size() < kapacitet) && bil.getLength() <= 2) {
             double distance = calculateDistance(bil.getPosition(), getPosition());
-
-            if (loadedCars.size() < kapacitet && distance < 2) {
+            if (distance < 2) {
                 loadedCars.add(bil);
                 System.out.println("Bil lastad på transportör.");
             }
-
-        }else{
-            System.out.println("Kunde inte lasta på bilen. Kolla status på både ramp och Biltransportörens hastighet.");
         }
-        System.out.println("Dubbelkolla rampen och överskrid inte kapaciteten");
     }
 
     private double calculateDistance(Point pos1, Point pos2) {
@@ -62,7 +57,6 @@ public class CarTransporter extends Car{
     public void unloadCar() {
        if (!rampUppe && getAntalLastadeBilar() > 0) {
 
-
        loadedCars.get(loadedCars.size()-1).setPosition(getNewCarPosition());
        loadedCars.remove(loadedCars.size()-1);
        System.out.println("Bil lastades av från biltransporten.");
@@ -72,8 +66,6 @@ public class CarTransporter extends Car{
        }
 
         }
-    }
-
     private Point getNewCarPosition() {
         Point transporterPosition = getPosition();
         double angle = Math.toRadians(getDirection() + 180);
@@ -107,5 +99,7 @@ public class CarTransporter extends Car{
     }
 
 }
+
+
 
 
