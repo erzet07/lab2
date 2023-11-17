@@ -32,13 +32,6 @@ public class Scania extends Car{
         return getEnginePower() * 0.1;
     }
 
-    public static void main(String[] args) {
-        Scania s = new Scania();
-        s.startEngine();
-        s.gas(1);
-        s.gas(1);
-        s.move();
-        System.out.println(s.getPosition());
-    }
+
 
 }

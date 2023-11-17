@@ -35,7 +35,7 @@ class CarTransporterTest {
         transporter.gas(1);
         transporter.move();
         transporter.lowerRamp();
-       assertTrue(transporter.helper.getflakVinkel()==70);
+       assertTrue(transporter.getOmRampUppe());
 
     }
 

@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Verkstad <T extends Car> implements bilVerkstad<T> {
-    private int maxAntalBilar;
+public class Verkstad <T extends Car>  implements bilVerkstad<T>{
+    private int maxAntalBilar = 5;
     private ArrayList<T> bilLista = new ArrayList<>();
 
 
@@ -24,6 +25,7 @@ public class Verkstad <T extends Car> implements bilVerkstad<T> {
     public void taUtBil(T bilTyp) {
         bilLista.remove(bilTyp);
     }
+
 
 }
 

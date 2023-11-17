@@ -99,9 +99,7 @@ public class CarTransporter extends Car{
     }
 
 
-    public Car getSenasteBilen() {
-        return loadedCars.get(loadedCars.size()-1);
-    }
+
 
     public LinkedList<Car> getLoadedCars() {
         return loadedCars;
