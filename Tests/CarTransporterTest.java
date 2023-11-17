@@ -22,7 +22,6 @@ class CarTransporterTest {
     }
     @Test
     void rampShouldBeLoweredWhenStationary() {
-        // Test that the ramp lowers only when the transporter is stationary
         transporter.lowerRamp();
         assertFalse(transporter.getOmRampUppe());
         transporter.gas(1);
@@ -32,14 +31,12 @@ class CarTransporterTest {
     @Test
     void rampShouldNotLowerWhenMoving(){
         transporter.startEngine();
-        transporter.gas(0.5);
-        double initialSpeedCarTransporter = transporter.getCurrentSpeed();
-        transporter.brake(0.5);
-        double expectedSpeedCarTransporter = initialSpeedCarTransporter - (3 * transporter.speedFactor());
+
+        transporter.gas(1);
         transporter.move();
         transporter.lowerRamp();
+       assertTrue(transporter.helper.getflakVinkel()==70);
 
-       assertTrue(transporter.getOmRampUppe());
     }
 
     @Test
@@ -47,7 +44,9 @@ class CarTransporterTest {
         transporter.lowerRamp();
         transporter.loadCar(s);
         transporter.raiseRamp();
+
         assertTrue(transporter.getOmRampUppe());
+
     }
     @Test
     void countingWorks() {
@@ -59,9 +58,10 @@ class CarTransporterTest {
         assert (transporter.getLoadedCars().isEmpty());
     }
     @Test
-    void loadCar() {
+    void loadCarRangeLimitAndOnlyWhenRampIsLowered() {
         transporter.raiseRamp();
         transporter.loadCar(s);
+
         transporter.lowerRamp();
         Point motel = new Point(20,20);
         s.setPosition(motel);
@@ -110,6 +110,23 @@ class CarTransporterTest {
         assertEquals(1,transporter.getAntalLastadeBilar());
         transporter.loadCar(v);
         assertEquals(2,transporter.getAntalLastadeBilar());
+    }
+    @Test
+    void updateLoadedCarsPosition() {
+        Point Origo = new Point(0,0);
+        s.setPosition(Origo);
+        transporter.setPosition(Origo);
+        v.setPosition(Origo);
+        transporter.lowerRamp();
+        transporter.loadCar(s);
+        transporter.loadCar(v);
+        transporter.startEngine();
+        transporter.gas(20);
+        transporter.move();  // korrekt rörelse inputs
+        Point nyposTransporter = new Point(transporter.getPosition());
+        Point nyposSaab = new Point(s.getPosition());
+        assertEquals(nyposTransporter, nyposSaab);
+        assertNotEquals(Origo, nyposSaab);
     }
 
 }

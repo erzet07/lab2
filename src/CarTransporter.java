@@ -2,8 +2,14 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class CarTransporter extends Car{
+
+
+    public Scania helper = new Scania();
+    public double speedFactor() {return 3; }
     private final int kapacitet;
-    private boolean rampUppe;
+
+
+
     private LinkedList<Car> loadedCars = new LinkedList<>();
 
 
@@ -11,7 +17,7 @@ public class CarTransporter extends Car{
     public CarTransporter(int kapacitet) {
         super(10, 2, "Daf", 225, Color.gray);
         this.kapacitet = kapacitet;
-        this.rampUppe = true;
+        helper.changeFlak(70);
 
     }
 
@@ -27,20 +33,31 @@ public class CarTransporter extends Car{
         }
     }
 
+
+    @Override
+    public void move() {
+        super.move();
+        updateLoadedCarsPosition();
+    }
+
+
+
+
+
     public void lowerRamp() {
         if (getCurrentSpeed() == 0) {
-            rampUppe = false;
-        } else {
-            System.out.println("Kan inte sänka rampen då transporten rör sig.");
+            helper.changeFlak(0);
         }
     }
-    public void raiseRamp() {
-        rampUppe = true;
-        System.out.println("Ramp höjd");
 
+
+    public void raiseRamp() {
+        helper.changeFlak(70);
     }
     public void loadCar(Car bil) {
-        if (!rampUppe && (loadedCars.size() < kapacitet) && bil.getLength() <= 2) {
+
+        if (helper.getflakVinkel() == 0 && loadedCars.size() < kapacitet && bil.getLength() <= 2) {
+
             double distance = calculateDistance(bil.getPosition(), getPosition());
             if (distance < 2) {
                 loadedCars.add(bil);
@@ -55,7 +72,9 @@ public class CarTransporter extends Car{
 
 
     public void unloadCar() {
-       if (!rampUppe && getAntalLastadeBilar() > 0) {
+
+       if (!getOmRampUppe() && getAntalLastadeBilar() > 0) {
+
 
        loadedCars.get(loadedCars.size()-1).setPosition(getNewCarPosition());
        loadedCars.remove(loadedCars.size()-1);
@@ -90,12 +109,12 @@ public class CarTransporter extends Car{
 
     @Override
     public void gas(double amount) {
-        if (rampUppe)
+        if (helper.getflakVinkel() == 70)
             super.gas(amount);
     }
 
     public boolean getOmRampUppe() {
-        return rampUppe;
+        return helper.getflakVinkel() == 70;
     }
 
 }
