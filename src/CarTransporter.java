@@ -3,8 +3,9 @@ import java.util.LinkedList;
 
 public class CarTransporter extends Car{
     private final int kapacitet;
-    public boolean rampUppe;
+    private boolean rampUppe;
     private LinkedList<Car> loadedCars = new LinkedList<>();
+
 
 
     public CarTransporter(int kapacitet) {
@@ -34,12 +35,9 @@ public class CarTransporter extends Car{
         }
     }
     public void raiseRamp() {
-        if (loadedCars.isEmpty()) {
-            rampUppe = true;
-            System.out.println("Ramp höjd");
-        } else {
-            System.out.println("Kan inte höja ramp om transporten är lastad");
-        }
+        rampUppe = true;
+        System.out.println("Ramp höjd");
+
     }
     public void loadCar(Car bil) {
         if (!rampUppe && loadedCars.size() < kapacitet && !(bil instanceof CarTransporter)) {
@@ -62,15 +60,17 @@ public class CarTransporter extends Car{
 
 
     public void unloadCar() {
-        if (!rampUppe && getAntalLastadeBilar() > 0) {
+       if (!rampUppe && getAntalLastadeBilar() > 0) {
 
-            Point newCarPosition = getNewCarPosition();
-            loadedCars.get(loadedCars.size()-1).setPosition(newCarPosition);
-            loadedCars.remove(loadedCars.size()-1);
-            System.out.println("Bil lastades av från biltransporten.");
 
-        } else {
-            System.out.println("Kunde inte lasta på bilen. Kolla status på både ramp och Biltransportens hastighet.");
+       loadedCars.get(loadedCars.size()-1).setPosition(getNewCarPosition());
+       loadedCars.remove(loadedCars.size()-1);
+       System.out.println("Bil lastades av från biltransporten.");
+
+       } else {
+       System.out.println("Kunde inte lasta på bilen. Kolla status på både ramp och Biltransportens hastighet.");
+       }
+
         }
     }
 
@@ -91,6 +91,21 @@ public class CarTransporter extends Car{
     public Car getSenasteBilen() {
         return loadedCars.get(loadedCars.size()-1);
     }
+
+    public LinkedList<Car> getLoadedCars() {
+        return loadedCars;
+    }
+
+    @Override
+    public void gas(double amount) {
+        if (rampUppe)
+            super.gas(amount);
+    }
+
+    public boolean getOmRampUppe() {
+        return rampUppe;
+    }
+
 }
 
 

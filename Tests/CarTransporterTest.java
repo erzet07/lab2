@@ -24,7 +24,10 @@ class CarTransporterTest {
     void rampShouldBeLoweredWhenStationary() {
         // Test that the ramp lowers only when the transporter is stationary
         transporter.lowerRamp();
-        assertFalse(transporter.rampUppe);
+        assertFalse(transporter.getOmRampUppe());
+        transporter.gas(1);
+        transporter.lowerRamp();
+        assertFalse(transporter.getOmRampUppe());
     }
     @Test
     void rampShouldNotLowerWhenMoving(){
@@ -35,7 +38,8 @@ class CarTransporterTest {
         double expectedSpeedCarTransporter = initialSpeedCarTransporter - (3 * transporter.speedFactor());
         transporter.move();
         transporter.lowerRamp();
-        assertTrue(transporter.rampUppe);
+
+       assertTrue(transporter.getOmRampUppe());
     }
 
     @Test
@@ -43,17 +47,16 @@ class CarTransporterTest {
         transporter.lowerRamp();
         transporter.loadCar(s);
         transporter.raiseRamp();
-        assertFalse(transporter.rampUppe);
+        assertFalse(transporter.getOmRampUppe());
     }
     @Test
     void countingWorks() {
         transporter.lowerRamp();
-        System.out.println("Innan lastning: " + transporter.getAntalLastadeBilar());
-        transporter.loadCar(s);
-        System.out.println("Efter lastning: " + transporter.getAntalLastadeBilar());
 
+        transporter.loadCar(s);
+        assert(transporter.getLoadedCars().size() == 1);
         transporter.unloadCar();
-        System.out.println("Efter avlastning: " + transporter.getAntalLastadeBilar());
+        assert (transporter.getLoadedCars().isEmpty());
     }
     @Test
     void loadCar() {
