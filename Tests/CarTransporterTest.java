@@ -29,10 +29,13 @@ class CarTransporterTest {
     @Test
     void rampShouldNotLowerWhenMoving(){
         transporter.startEngine();
-        transporter.gas(3);
+        transporter.gas(0.5);
+        double initialSpeedCarTransporter = transporter.getCurrentSpeed();
+        transporter.brake(0.5);
+        double expectedSpeedCarTransporter = initialSpeedCarTransporter - (3 * transporter.speedFactor());
         transporter.move();
         transporter.lowerRamp();
-       assertTrue(transporter.rampUppe);
+        assertTrue(transporter.rampUppe);
     }
 
     @Test
