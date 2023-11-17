@@ -1,6 +1,7 @@
 import java.awt.*;
 
 public abstract class Car implements Movable {
+    private int length;
     private int nrDoors;
     private double enginePower;
     private double currentSpeed;
@@ -9,7 +10,8 @@ public abstract class Car implements Movable {
     private Point position;
     private double direction;
 
-    public Car(int nrDoors, String modelName, double enginePower, Color color) {
+    public Car(int length, int nrDoors, String modelName, double enginePower, Color color) {
+        this.length = length;
         this.nrDoors = nrDoors;
         this.modelName = modelName;
         this.enginePower = enginePower;
@@ -34,6 +36,8 @@ public abstract class Car implements Movable {
             System.out.println("Test failed");
         }
     }
+
+    public int getLength(){return length;}
 
     public int getNrDoors(){
         return nrDoors;

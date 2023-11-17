@@ -47,7 +47,7 @@ class CarTransporterTest {
         transporter.lowerRamp();
         transporter.loadCar(s);
         transporter.raiseRamp();
-        assertFalse(transporter.getOmRampUppe());
+        assertTrue(transporter.getOmRampUppe());
     }
     @Test
     void countingWorks() {
