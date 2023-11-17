@@ -28,8 +28,8 @@ public class Scania extends Car{
         return flakVinkel;
     }
 
-    public double speedFactor() {
-        return 1;
+    public double speedFactor(){
+        return getEnginePower() * 0.1;
     }
 
     public static void main(String[] args) {

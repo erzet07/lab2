@@ -75,6 +75,12 @@ class CarTest {
         volvo.startEngine();
         volvo.gas(0.5);
         assertTrue(volvo.getCurrentSpeed() > 0);
+
+        scania.startEngine();
+        scania.gas(0.5);
+        assertTrue(scania.getCurrentSpeed() > 0);
+
+
     }
 
     @Test
@@ -153,6 +159,7 @@ class CarTest {
         volvo.startEngine();
         volvo.gas(0.5);
         volvo.move();
+
         Point vUpdatedPosition = volvo.getPosition();
         assertNotEquals(vStartingPosition, vUpdatedPosition);
 
