@@ -4,7 +4,7 @@ public class Scania extends Car{
 
     private double flakVinkel = 0;
     public Scania() {
-        super(2,"Scania",150, Color.white);
+        super(12,2,"Scania",150, Color.white);
     }
 
     public void changeFlak(double amount) {

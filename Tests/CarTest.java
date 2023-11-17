@@ -7,21 +7,36 @@ class CarTest {
     Saab95 saab;
     Volvo240 volvo;
     Scania scania;
+    Verkstad<Saab95> saabVerkstad;
+    Verkstad<Volvo240> volvoVerkstad;
+    Verkstad<Car> mixadVerkstad;
+
+
     @BeforeEach
-    void newCar() {
-       saab = new Saab95();
-       volvo = new Volvo240();
+    void setUp() {
+        saab = new Saab95();
+        volvo = new Volvo240();
         scania = new Scania();
+
+        saabVerkstad = new Verkstad<>();
+        saabVerkstad.setMaxAntalBilar(4);
+
+        volvoVerkstad = new Verkstad<>();
+        volvoVerkstad.setMaxAntalBilar(6);
+
+        mixadVerkstad = new Verkstad<>();
+        mixadVerkstad.setMaxAntalBilar(10);
+
+
     }
 
     @Test
-    void colorCar(){
+    void colorCar() {
         Color saabColor = Color.red;
         assertEquals(saabColor, saab.getColor());
 
         Color volvoColor = Color.black;
         assertEquals(volvoColor, volvo.getColor());
-
     }
 
     @Test
@@ -31,7 +46,6 @@ class CarTest {
 
         int saabNrDoors = 2;
         assertEquals(saabNrDoors, saab.getNrDoors());
-
     }
 
     @Test
@@ -50,8 +64,6 @@ class CarTest {
 
         double expectedPowerVolvo = 100;
         assertEquals(expectedPowerVolvo, volvo.getEnginePower());
-
-
     }
 
     @Test
@@ -153,7 +165,6 @@ class CarTest {
     }
 
 
-
     @Test
     void testTurnLeft() {
         double initialDirectionS = saab.getDirection();
@@ -182,7 +193,33 @@ class CarTest {
     void testchangeflakVinkel() {
         scania.changeFlak(50);
         assertEquals(50, scania.getflakVinkel());
-        scania.changeFlak(70);
-        assertEquals(70,scania.getflakVinkel());
+
+        scania.changeflakVinkel(70);
+        assertEquals(70, scania.getflakVinkel());
+    }
+
+    @Test
+    void testTaUtOchInBilar() {
+        saabVerkstad.taInBil(saab);
+        saabVerkstad.taInBil(saab);
+        saabVerkstad.taUtBil(saab);
+        assertEquals(1, saabVerkstad.getBilarIVerkstad().size());
+    }
+
+    @Test
+    void testGetBilarIVerkstad() {
+        volvoVerkstad.taInBil(volvo);
+        assertTrue(volvoVerkstad.getBilarIVerkstad().contains(volvo));
+
+        mixadVerkstad.taInBil(saab);
+        mixadVerkstad.taInBil(volvo);
+        assertEquals(2, mixadVerkstad.getBilarIVerkstad().size());
+    }
+
+    @Test
+    void testGetMaxAntalBilar() {
+        int expectedMaxAntalBilar = 4;
+        assertEquals(expectedMaxAntalBilar, saabVerkstad.getMaxAntalBilar());
+
     }
 }

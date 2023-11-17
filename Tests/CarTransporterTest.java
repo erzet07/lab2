@@ -31,10 +31,12 @@ class CarTransporterTest {
     @Test
     void rampShouldNotLowerWhenMoving(){
         transporter.startEngine();
+
         transporter.gas(1);
         transporter.move();
         transporter.lowerRamp();
        assertTrue(transporter.helper.getflakVinkel()==70);
+
     }
 
     @Test
@@ -42,7 +44,9 @@ class CarTransporterTest {
         transporter.lowerRamp();
         transporter.loadCar(s);
         transporter.raiseRamp();
-        assertNotEquals(0, transporter.helper.getflakVinkel(), 0.0);
+
+        assertTrue(transporter.getOmRampUppe());
+
     }
     @Test
     void countingWorks() {
