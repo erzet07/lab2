@@ -3,9 +3,10 @@ import java.util.LinkedList;
 
 public class CarTransporter extends Car{
 
+    public Scania helper = new Scania();
     public double speedFactor() {return 3; }
     private final int kapacitet;
-    private boolean rampUppe;
+
 
     private LinkedList<Car> loadedCars = new LinkedList<>();
 
@@ -15,7 +16,7 @@ public class CarTransporter extends Car{
     public CarTransporter(int kapacitet) {
         super(2, "Daf", 225, Color.gray);
         this.kapacitet = kapacitet;
-        this.rampUppe = true;
+        helper.changeFlak(70);
 
     }
 
@@ -34,21 +35,20 @@ public class CarTransporter extends Car{
         updateLoadedCarsPosition();
     }
 
+
+
+
     public void lowerRamp() {
         if (getCurrentSpeed() == 0) {
-            rampUppe = false;
-        } else {
-            System.out.println("Kan inte sänka rampen då transporten rör sig.");
+            helper.changeFlak(0);
         }
     }
+
     public void raiseRamp() {
-
-        rampUppe = true;
-        System.out.println("Ramp höjd");
-
+        helper.changeFlak(70);
     }
     public void loadCar(Car bil) {
-        if (!rampUppe && loadedCars.size() < kapacitet && !(bil instanceof CarTransporter)) {
+        if (helper.getflakVinkel() == 0 && loadedCars.size() < kapacitet && !(bil instanceof CarTransporter)) {
             double distance = calculateDistance(bil.getPosition(), getPosition());
 
 
@@ -73,7 +73,7 @@ public class CarTransporter extends Car{
 
 
     public void unloadCar() {
-            if (!rampUppe && getAntalLastadeBilar() > 0) {
+            if (helper.getflakVinkel() == 0 && getAntalLastadeBilar() > 0) {
 
 
                 loadedCars.get(loadedCars.size()-1).setPosition(getNewCarPosition());
@@ -91,8 +91,7 @@ public class CarTransporter extends Car{
         double distance = 1;
         double newX = transporterPosition.getX() + distance * Math.cos(angle);
         double newY = transporterPosition.getY() + distance * Math.sin(angle);
-        Point newCarPosition = new Point((int) newX, (int) newY);
-        return newCarPosition;
+        return new Point((int) newX, (int) newY);
     }
 
     public int getAntalLastadeBilar() {
@@ -113,12 +112,12 @@ public class CarTransporter extends Car{
 
     @Override
     public void gas(double amount) {
-        if (rampUppe)
+        if (helper.getflakVinkel() == 70)
             super.gas(amount);
     }
 
     public boolean getOmRampUppe() {
-        return rampUppe;
+        return helper.getflakVinkel() == 70;
     }
 
 }

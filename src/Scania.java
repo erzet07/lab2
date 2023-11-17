@@ -7,7 +7,7 @@ public class Scania extends Car{
         super(2,"Scania",150, Color.white);
     }
 
-    public void changeflakVinkel(double amount) {
+    public void changeFlak(double amount) {
         if (amount >= 0 && amount <= 70 && getCurrentSpeed() == 0) {
             flakVinkel = amount;
         }
