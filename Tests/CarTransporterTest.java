@@ -22,7 +22,6 @@ class CarTransporterTest {
     }
     @Test
     void rampShouldBeLoweredWhenStationary() {
-        // Test that the ramp lowers only when the transporter is stationary
         transporter.lowerRamp();
         assertFalse(transporter.getOmRampUppe());
         transporter.gas(1);
