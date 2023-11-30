@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.LinkedList;
 
-public class CarTransporter extends Vehicles{
+public class CarTransporter <T extends Car> extends Vehicles{
 
 
 
