@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Car{
+public class Scania extends Vehicles{
 
     private double flakVinkel = 0;
     public Scania() {
